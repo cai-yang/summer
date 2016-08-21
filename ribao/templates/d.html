@@ -1,0 +1,11 @@
+<html>
+<body>
+  <h1>This is Daily No.{{d.pk}}</h1>
+  {%for article in ARTICLE_LIST%}
+  <h3>{{article.title}}</h3>
+  <p>{{article.comment}}</p>
+  <a href="{{article.raw_url}}">阅读原链</a>
+  {%endfor%}
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+<body>
+{%for A_LIST in ARTICLE_LIST%}
+  <h1>This is Daily No.{{d_num}}</h1>
+    <p>{{forloop.counter0}}</p>
+    {%for article in A_LIST%}
+    <p>{{article.title}}<p>
+    <p>{{article.comment}}<p>
+    <a href="{{article.raw_url}}">查看原链</a>
+    {%endfor%}
+{%endfor%}
+
+{%if not page == 1%}
+  <a href="{{PREVIOUS_URL}}">上一页</a>
+{%endif%}
+<a href="{{NEXT_URL}}">下一页</a>
+
+
+</body>
+</html>
