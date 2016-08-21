@@ -18,7 +18,12 @@ def article(request,num='1'):
     return render_to_response('a.html',{'a':a})
 
 def dailyhomepage(request,page='1'):
+    CURRENT_URL = request.path
+    PREVIOUS_URL = CURRENT_URL.replace(page,str(int(page)-1))
+    NEXT_URL = CURRENT_URL.replace(page,str(int(page)+1))
     page = int(page)
+    DAILY_LIST=[]
+    ARTICLE_LIST=[[],[],[],[]]
     for d_num in range(page * 4 - 3, page * 4 + 1):
         if not page==1:
             index = (d_num) % (page * 4 - 3)
