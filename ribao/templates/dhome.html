@@ -1,10 +1,9 @@
 <html>
 <body>
 {%for A_LIST in ARTICLE_LIST%}
-  <h1>This is Daily No.{{d_num}}</h1>
-    <p>{{forloop.counter0}}</p>
+  <h1>This is <a href="/d/{{A_LIST.0.daily.pk}}/">Daily No.{{A_LIST.0.daily.pk}}</a></h1>
     {%for article in A_LIST%}
-    <p>{{article.title}}<p>
+    <p><a href="/a/{{article.pk}}">{{article.title}}</a><p>
     <p>{{article.comment}}<p>
     <a href="{{article.raw_url}}">查看原链</a>
     {%endfor%}

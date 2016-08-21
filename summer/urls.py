@@ -23,9 +23,10 @@ router.register(r'article',views.ArticleViewSet)
 router.register(r'daily',views.DailyViewSet)
 
 urlpatterns = [
-    url(r'^',include(router.urls)),
     url(r'^a/(\d+)', views.article),
     url(r'^x/(\d+)', views.dailyhomepage),
     url(r'^d/(\d+)', views.daily),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', views.homepage),
+    url(r'^',include(router.urls)),
 ]

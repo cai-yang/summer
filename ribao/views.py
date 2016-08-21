@@ -13,6 +13,10 @@ from rest_framework import status, permissions, renderers, viewsets
 
 
 # Create your views here.
+def homepage(request):
+    return render_to_response('index.html')
+
+
 def article(request,num='1'):
     a = Article.objects.get(pk=num)
     return render_to_response('a.html',{'a':a})
