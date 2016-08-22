@@ -16,27 +16,43 @@ def publish_article(article_index):
 
 
 
-@shared_task
+@shared_task(retries=3)
 def check(daily_index):
     try:
         d=Daily.objects.get(pk=int(daily_index))
     except:
-        check.apply_async((daily_index + 1,), countdown=3)
-        return "NO DAILY"
+        Daily.objects.create()
+        #check.apply_async((daily_index + 1,), countdown=3)
+        return "%d NO DAILY" % daily_index
     article_list = Article.objects.filter(daily = d)
     try:
         p=article_list[4].title
     except:
-        check.apply_async((daily_index,), countdown=3)
-        return "NOT FULL"
+        #check.apply_async((daily_index,), countdown=3)
+        return "%d NOT FULL" % daily_index
     flag = daily_index
     for article in article_list:
         if article.status=="0":
-            check.apply_async((daily_index,), countdown=3)
-            return "NOT READY"
+            #check.apply_async((daily_index,), countdown=3)
+            return "%d NOT READY" % daily_index
     chain = publish_daily.s(daily_index)|check.s()
     chain()
     return "SENDING"
+
+@shared_task
+def add_to_daily(article_index,daily_index):
+    try:
+        article = Article.objects.get(pk=article_index)
+    except:
+        return "ERROR: ARTICLE DOES NOT EXSIT"
+    try:
+        article.daily = Daily.objects.get(pk=daily_index)
+    except:
+        Daily.objects.create()
+        daily_index = daily_index + 1
+        add_to_daily.apply_async((article,daily_index),countdown=3)
+    article.save()
+    return 'article %d %s has been added to daily %d successfully.' % (article.pk, article.title, daily_index)
 
 @shared_task
 def publish_daily(daily_index):

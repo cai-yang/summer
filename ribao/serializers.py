@@ -6,12 +6,12 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
     #owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Article
-        fields = ('url','daily','raw_url','title','date_add','status','comment')
+        fields = ('url','daily','raw_url','title','date_add','comment')
 
 class DailySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Daily
-        fields = ('url','date_add')
+        fields = ('url','date_add','status')
 
 
 

@@ -28,11 +28,11 @@ app.conf.update(
         #    'schedule':timedelta(seconds=2),
         #    'args':(16,16)
         #    },
-        'check-every-2-seconds':{
-            'task':'ribao.tasks.check',
-            'schedule':timedelta(seconds=2),
-            'args':(1,),
-            },
+        #'check-every-2-seconds':{
+        #    'task':'ribao.tasks.check',
+        #    'schedule':timedelta(seconds=2),
+        #    'args':(1,),
+        #    },
         },
     CELERY_TIMEZONE = 'UTC',
 )

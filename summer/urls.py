@@ -27,6 +27,5 @@ urlpatterns = [
     url(r'^x/(\d+)', views.dailyhomepage),
     url(r'^d/(\d+)', views.daily),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', views.homepage),
     url(r'^',include(router.urls)),
 ]

@@ -27,7 +27,7 @@ def dailyhomepage(request,page='1'):
     NEXT_URL = CURRENT_URL.replace(page,str(int(page)+1))
     page = int(page)
     DAILY_LIST=[]
-    ARTICLE_LIST=[[],[],[],[]]
+    ARTICLE_LIST=[]
     for d_num in range(page * 4 - 3, page * 4 + 1):
         if not page==1:
             index = (d_num) % (page * 4 - 3)
@@ -35,13 +35,15 @@ def dailyhomepage(request,page='1'):
             index = d_num - 1
         try:
             DAILY_LIST.append(Daily.objects.get(pk=d_num))
+            ARTICLE_LIST.append([])
         except:
-            break
+            flag=0
+            return render_to_response('dhome.html',{'flag':flag, 'd_num':d_num,'PREVIOUS_URL':PREVIOUS_URL, 'NEXT_URL':NEXT_URL, 'page':page, 'DAILY_LIST':DAILY_LIST, 'ARTICLE_LIST':ARTICLE_LIST})
         ARTICLE_LIST[index] = Article.objects.filter(daily=Daily.objects.get(pk=d_num))
         #for a_num in ARTICLE_NUM_LIST[index]:
         #    ARTICLE_LIST[index].append(Article.objects.get(pk=a_num))
 
-    return render_to_response('dhome.html',{'d_num':d_num,'PREVIOUS_URL':PREVIOUS_URL, 'NEXT_URL':NEXT_URL, 'page':page, 'DAILY_LIST':DAILY_LIST, 'ARTICLE_LIST':ARTICLE_LIST})
+    return render_to_response('dhome.html',{'flag':flag, 'd_num':d_num,'PREVIOUS_URL':PREVIOUS_URL, 'NEXT_URL':NEXT_URL, 'page':page, 'DAILY_LIST':DAILY_LIST, 'ARTICLE_LIST':ARTICLE_LIST})
 
 def daily(request,num='1'):
     d = Daily.objects.get(pk=num)
