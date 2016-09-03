@@ -21,6 +21,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'article',views.ArticleViewSet)
 router.register(r'daily',views.DailyViewSet)
+router.register(r'category',views.CategoryViewSet)
 
 urlpatterns = [
     url(r'^a/(\d+)', views.article),

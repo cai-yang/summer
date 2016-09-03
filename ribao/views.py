@@ -1,7 +1,7 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse
-from ribao.models import Article, Daily
-from ribao.serializers import ArticleSerializer, DailySerializer
+from ribao.models import *
+from ribao.serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework import generics
@@ -19,7 +19,7 @@ def homepage(request):
 
 def article(request,num='1'):
     a = Article.objects.get(pk=num)
-    return render_to_response('a.html',{'a':a})
+    return render_to_response('d.html',{'a':a})
 
 def dailyhomepage(request,page='1'):
     CURRENT_URL = request.path
@@ -62,3 +62,7 @@ class DailyViewSet(viewsets.ModelViewSet):
     queryset = Daily.objects.all()
     serializer_class = DailySerializer
     #permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
